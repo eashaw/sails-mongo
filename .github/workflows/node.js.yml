@@ -16,11 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        # node-version: [12.x, 14.x, 16.x]
-        # mongodb-version: ['3.6', '4.0', '4.2']
-        node-version: [12.x]
-        mongodb-version: ['3.6']
-
+        node-version: [12.x, 14.x, 16.x]
+        mongodb-version: ['3.6', '4.0', '4.2']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -34,10 +31,7 @@ jobs:
       uses: supercharge/mongodb-github-action@1.6.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
-    # - run: npm ci
     - run: npm i --no-audit
+    - run: npm ci
     - run: npm config set send-metrics false
-
-    # - run: npm ci
-    # - run: npm run build --if-present
     - run: npm test
